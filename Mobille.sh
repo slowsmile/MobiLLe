@@ -92,7 +92,7 @@ do
             InputPath=$OPTARG
             ;;
         o)
-            OutPath=$OPTARG
+            OutputPath=$OPTARG
             ;;
         f)
             ParameterFile=$OPTARG
@@ -114,7 +114,7 @@ IFS='='
 
 
 
-if [ -n $Parameters ]; #-n STRING the length of STRING is nonzero
+if [ ! -z $ParameterFile ]; #if parameter file is provided, override command line
     then
     while read line  || [ -n "$line" ];
         do
@@ -243,13 +243,11 @@ fi
 
 
 
-
 export BASE_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 export SCRIPTS_DIR=$BASE_DIR/Code/src/
 export RESULT_DIR=$OutputPath
 
-
-mkdir $RESULT_DIR
+mkdir -p $RESULT_DIR
 #mkdir ${RESULT_DIR}${AnalysisName}/
 
 
