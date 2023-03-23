@@ -27,75 +27,74 @@ def dico_V_J_CDR3_format(AIRR,abundance_threshold,quality_filter):
 	low_quality_seq, remain_seq =[], []
 	Dico={}
 	Dico_uniq_adundance = {}
+	header=lines[0].split("\t")
+	header[-1] = header[-1].strip()
 	for l in range(1,len(lines)):
 		split=lines[l].split("\t")
 		#split[13] is the sequence alignment, is better than the sequence because it starts at the beginig of the V and ends at the end of J 
 		
 		if quality_filter == "True" or quality_filter == "TRUE" :
 			#sequences contaning N are discarded 
-			if 'n' in split[13].lower(): 
+			if 'n' in split[header.index('c_call')].lower(): 
 				low_quality_seq.append(l)
 			else :
 				functionality,V,J,CDR3,Jseq,Vseq,Jseq_aa,Vseq_aa = "_","_","_","_","_","_","_","_"
-				sequence_id = split[0]
-				if split[4] != "":
-					functionality = split[4]
-				if split[9] != "":
-					if len(split[9].split(" "))>1 :
-						V = split[9].split(" ")[1]
+				sequence_id = split[header.index('sequence_id')]
+				if 'productive' in header:
+					functionality = split[header.index('productive')]
+				if 'v_call' in header:
+					if len(split[header.index('v_call')].split(" "))>1 :
+						V = split[header.index('v_call')].split(" ")[1]
 					else: 
-						V = split[9]
+						V = split[header.index('v_call')]
 				
-				if split[11] != "":
-					if len(split[11].split(" "))>1 :
-						J = split[11].split(" ")[1]
+				if 'j_call' in header:
+					if len(split[header.index('j_call')].split(" "))>1 :
+						J = split[header.index('j_call')].split(" ")[1]
 					else :
-						J = split[11]
-				
-				if split[28] != "":
-					CDR3 = split[28].replace("#", ".")
-				if split[89] != "":
-					Jseq = split[89].replace('.', '')
-				if split[85] != "":
-					Vseq = split[85].replace('.', '')
-				if split[90] != "":
-					Jseq_aa = split[90].replace('.', '')
-				if split[86] != "":
-					Vseq_aa = split[86].replace('.', '')
+						J = split[header.index('j_call')]				
+				if 'cdr3_aa' in header:
+					CDR3 = split[header.index('cdr3_aa')].replace("#", ".")
+				if 'j_sequence_alignment' in header:
+					Jseq = split[header.index('j_sequence_alignment')].replace('.', '')
+				if 'v_sequence_alignment' in header:
+					Vseq = split[header.index('v_sequence_alignment')].replace('.', '')
+				if 'j_sequence_alignment_aa' in header:
+					Jseq_aa = split[header.index('j_sequence_alignment_aa')].replace('.', '')
+				if 'v_sequence_alignment_aa' in header:
+					Vseq_aa = split[header.index('v_sequence_alignment_aa')].replace('.', '')
 				Dico[sequence_id] = [functionality,V,J,CDR3,Jseq,Vseq,Jseq_aa,Vseq_aa ]
 				# keep the sequences based on the read abundace
-				if split[13] in Dico_uniq_adundance.keys() :
-					Dico_uniq_adundance[split[13]].append(sequence_id)
+				if split[header.index('sequence_alignment')] in Dico_uniq_adundance.keys() :
+					Dico_uniq_adundance[split[header.index('sequence_alignment')]].append(sequence_id)
 				else : 
-					Dico_uniq_adundance[split[13]] = [sequence_id]
+					Dico_uniq_adundance[split[header.index('sequence_alignment')]] = [sequence_id]
 
 		else:
 			functionality,V,J,CDR3,Jseq,Vseq,Jseq_aa,Vseq_aa = "_","_","_","_","_","_","_","_"
-			sequence_id = split[0]
-			if split[4] != "":
-				functionality = split[4]
-			if split[9] != "":
-				if len(split[9].split(" "))>1 :
-					V = split[9].split(" ")[1]
+			sequence_id = split[header.index('sequence_id')]
+			if 'productive' in header:
+				functionality = split[header.index('productive')]
+			if 'v_call' in header:
+				if len(split[header.index('v_call')].split(" "))>1 :
+					V = split[header.index('v_call')].split(" ")[1]
 				else: 
-					V = split[9]
-			
-			if split[11] != "":
-				if len(split[11].split(" "))>1 :
-					J = split[11].split(" ")[1]
+					V = split[header.index('v_call')]
+			if 'j_call' in header:
+				if len(split[header.index('j_call')].split(" "))>1 :
+					J = split[header.index('j_call')].split(" ")[1]
 				else :
-					J = split[11]
-			
-			if split[28] != "":
-				CDR3 = split[28].replace("#", ".")
-			if split[89] != "":
-				Jseq = split[89].replace('.', '')
-			if split[85] != "":
-				Vseq = split[85].replace('.', '')
-			if split[90] != "":
-				Jseq_aa = split[90].replace('.', '')
-			if split[86] != "":
-				Vseq_aa = split[86].replace('.', '')
+					J = split[header.index('j_call')]			
+			if 'cdr3_aa' in header:
+				CDR3 = split[header.index('cdr3_aa')].replace("#", ".")
+			if 'j_sequence_alignment' in header:
+				Jseq = split[header.index('j_sequence_alignment')].replace('.', '')
+			if 'v_sequence_alignment' in header:
+				Vseq = split[header.index('v_sequence_alignment')].replace('.', '')
+			if 'j_sequence_alignment_aa' in header:
+				Jseq_aa = split[header.index('j_sequence_alignment_aa')].replace('.', '')
+			if 'v_sequence_alignment_aa' in header:
+				Vseq_aa = split[header.index('v_sequence_alignment_aa')].replace('.', '')
 			Dico[sequence_id] = [functionality,V,J,CDR3,Jseq,Vseq,Jseq_aa,Vseq_aa ]
 			# keep the sequences based on the read abundace
 			if split[13] in Dico_uniq_adundance.keys() :
