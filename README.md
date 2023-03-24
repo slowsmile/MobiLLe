@@ -1,4 +1,4 @@
-# MobiLLe
+# A forked version from MobiLLe tool with several bugs fixed and a more robust AIRR file parsing improvement
 
 **A multi-objective based clustering for inferring BCR clonal lineages from high-throughput B-cell repertoire data**
 
@@ -10,8 +10,7 @@ Nika Abdollahi, Lucile Jeusset, Anne de Septenville, Hugues Ripoche,  Frederic D
 
 **CONTACT**  
   E-mail: 
-  juliana.silva_bernardes@sorbonne-universite.fr 
-  nikaabdollahi@gmail.com 
+  slowsmile820@gmail.com 
   
 ## Inputs
  
